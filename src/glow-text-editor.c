@@ -42,7 +42,7 @@ int main (int argc,
 
   gtk_init (&argc, &argv);
 
-  xml = glade_xml_new ("glow-ui.glade", NULL, NULL);
+  xml = glade_xml_new ("../src/glow-ui.glade", NULL, NULL);
   window = glade_xml_get_widget (xml, "window");
   textview = glade_xml_get_widget (xml, "textview");
   open = glade_xml_get_widget (xml, "open");
