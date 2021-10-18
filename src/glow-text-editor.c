@@ -197,7 +197,40 @@ save_clicked(GtkToolButton * cut) {
 }
 
 void
-find_clicked(GtkButton * cut) {
+cut_clicked(GtkToolButton * cut) {
+    GtkWidget * textview;
+    GtkClipboard * clipboard;
+    GtkTextBuffer * buffer;
+
+    textview = glade_xml_get_widget(xml, "textview");
+    clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+    gtk_text_buffer_cut_clipboard(buffer, clipboard, TRUE);
+}
+
+void copy_clicked(GtkToolButton * copy) {
+    GtkWidget * textview;
+    GtkClipboard * clipboard;
+    GtkTextBuffer * buffer;
+
+    textview = glade_xml_get_widget(xml, "textview");
+    clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+    gtk_text_buffer_copy_clipboard(buffer, clipboard);
+}
+
+void paste_clicked(GtkToolButton * paste) {
+    GtkWidget * textview;
+    GtkClipboard * clipboard;
+    GtkTextBuffer * buffer;
+
+    textview = glade_xml_get_widget(xml, "textview");
+    clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+    buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(textview));
+    gtk_text_buffer_paste_clipboard(buffer, clipboard, NULL, TRUE);
+}
+
+void find_clicked(GtkButton * cut) {
     const gchar * find;
     GtkTextBuffer * buffer;
     GtkTextIter start, begin, end;
@@ -227,7 +260,7 @@ find_clicked(GtkButton * cut) {
     } else {
         dialog = gtk_message_dialog_new(NULL, GTK_DIALOG_MODAL,
             GTK_MESSAGE_INFO, GTK_BUTTONS_OK,
-            "The text was not found!");
+            "The text was not found");
 
         gtk_dialog_run(GTK_DIALOG(dialog));
         gtk_widget_destroy(dialog);
